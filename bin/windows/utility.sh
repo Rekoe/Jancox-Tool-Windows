@@ -26,11 +26,11 @@ fi;
 case $1 in
 rom-info)
 if [ $(grep -q secure=0 $edit/vendor/default.prop) ]; then dmverity=true;
-elif [ $(grep forceencrypt $edit/vendor/etc/fstab.qcom) ]; then dmverity=true;
-elif [ $(grep forcefdeorfbe $edit/vendor/etc/fstab.qcom) ]; then dmverity=true;
-elif [ $(grep fileencryption $edit/vendor/etc/fstab.qcom) ]; then dmverity=true;
-elif [ $(grep .dmverity=true $edit/vendor/etc/fstab.qcom) ]; then dmverity=true;
-elif [ $(grep fileencryption $edit/vendor/etc/fstab.qcom) ]; then dmverity=true;
+elif [[ -d $edit/vendor/etc/fstab.qcom ]] && [[ $(grep forceencrypt $edit/vendor/etc/fstab.qcom) ]]; then dmverity=true;
+elif [[ -d $edit/vendor/etc/fstab.qcom ]] && [[ $(grep forcefdeorfbe $edit/vendor/etc/fstab.qcom) ]]; then dmverity=true;
+elif [[ -d $edit/vendor/etc/fstab.qcom ]] && [[ $(grep fileencryption $edit/vendor/etc/fstab.qcom) ]]; then dmverity=true;
+elif [[ -d $edit/vendor/etc/fstab.qcom ]] && [[ $(grep .dmverity=true $edit/vendor/etc/fstab.qcom) ]]; then dmverity=true;
+elif [[ -d $edit/vendor/etc/fstab.qcom ]] && [[ $(grep fileencryption $edit/vendor/etc/fstab.qcom) ]]; then dmverity=true;
 #elif [ -f $edit/$system/recovery-from-boot.p ]; then dmverity=true;
 else
 dmverity=false
