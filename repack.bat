@@ -18,11 +18,13 @@ if exist new_rom.zip del new_rom.zip
 if exist bin\tmp rd /s /q bin\tmp
 mkdir bin\tmp
 
+if exist editor\system_file_contexts (
 set /p systemsize=<"editor\system_size.txt"
 echo - Repack system
 bin\windows\make_ext4fs -s -L system -T -1 -S editor\system_file_contexts -C editor\system_fs_config -l %systemsize% -a system bin\tmp\system.img editor\system\ >nul
 )
 
+if exist editor\vendor_file_contexts (
 echo - Repack vendor
 set /p vendorsize=<"editor\vendor_size.txt"
 bin\windows\make_ext4fs -s -L vendor -T -1 -S editor\vendor_file_contexts -C editor\vendor_fs_config -l %vendorsize% -a vendor bin\tmp\vendor.img editor\vendor\ >nul

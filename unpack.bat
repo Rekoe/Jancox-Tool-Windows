@@ -21,6 +21,16 @@ echo - Unpack system.new.dat.br
 bin\windows\brotli -d bin\tmp\system.new.dat.br >nul
 del bin\tmp\system.new.dat.br
 )
+if exist bin\tmp\product.new.dat.br (
+echo - Unpack product.new.dat.br
+bin\windows\brotli -d bin\tmp\product.new.dat.br >nul
+del bin\tmp\product.new.dat.br
+)
+if exist bin\tmp\system_ext.new.dat.br (
+echo - Unpack system_ext.new.dat.br
+bin\windows\brotli -d bin\tmp\system_ext.new.dat.br >nul
+del bin\tmp\system_ext.new.dat.br
+)
 if exist bin\tmp\vendor.new.dat.br (
 echo - Unpack vendor.new.dat.br
 bin\windows\brotli -d bin\tmp\vendor.new.dat.br >nul
@@ -35,6 +45,22 @@ del bin\tmp\system.transfer.list
 del bin\tmp\system.patch.dat
 )
 
+if exist bin\tmp\product.new.dat (
+echo - Unpack product.new.dat
+bin\windows\sdat2img bin\tmp\product.transfer.list bin\tmp\product.new.dat bin\tmp\product.img >nul 2>nul
+del bin\tmp\product.new.dat
+del bin\tmp\product.transfer.list
+del bin\tmp\product.patch.dat
+)
+
+if exist bin\tmp\system.new.dat (
+echo - Unpack system_ext.new.dat
+bin\windows\sdat2img bin\tmp\system_ext.transfer.list bin\tmp\system_ext.new.dat bin\tmp\system_ext.img >nul 2>nul
+del bin\tmp\system_ext.new.dat
+del bin\tmp\system_ext.transfer.list
+del bin\tmp\system_ext.patch.dat
+)
+
 if exist bin\tmp\vendor.new.dat (
 echo - Unpack vendor.new.dat
 bin\windows\sdat2img bin\tmp\vendor.transfer.list bin\tmp\vendor.new.dat bin\tmp\vendor.img >nul 2>nul
@@ -43,10 +69,22 @@ del bin\tmp\vendor.transfer.list
 del bin\tmp\vendor.patch.dat
 )
 
+if exist bin\tmp\product.img (
+echo - Unpack product.img
+bin\windows\imgextractor bin\tmp\product.img editor\product >nul 2>nul
+del bin\tmp\product.img
+)
+
 if exist bin\tmp\system.img (
 echo - Unpack system.img
 bin\windows\imgextractor bin\tmp\system.img editor\system >nul 2>nul
 del bin\tmp\system.img
+)
+
+if exist bin\tmp\system_ext.img (
+echo - Unpack system_ext.img
+bin\windows\imgextractor bin\tmp\system_ext.img editor\system_ext >nul 2>nul
+del bin\tmp\system_ext.img
 )
 
 if exist bin\tmp\vendor.img (
@@ -57,8 +95,12 @@ del bin\tmp\vendor.img
 
 set tmp=bin\tmp
 if exist %tmp%\system_file_contexts move /y %tmp%\system_file_contexts editor\  >nul 2>nul
+if exist %tmp%\system_file_contexts move /y %tmp%\product_file_contexts editor\  >nul 2>nul
+if exist %tmp%\system_file_contexts move /y %tmp%\system_ext_file_contexts editor\  >nul 2>nul
 if exist %tmp%\vendor_file_contexts move /y %tmp%\vendor_file_contexts editor\  >nul 2>nul
 if exist %tmp%\system_fs_config move /y %tmp%\system_fs_config editor\  >nul 2>nul
+if exist %tmp%\system_fs_config move /y %tmp%\product_fs_config editor\  >nul 2>nul
+if exist %tmp%\system_fs_config move /y %tmp%\system_ext_fs_config editor\  >nul 2>nul
 if exist %tmp%\vendor_fs_config move /y %tmp%\vendor_fs_config editor\  >nul 2>nul
 if exist %tmp%\boot.img move /y %tmp%\boot.img editor\  >nul 2>nul
 if exist %tmp%\compatibility.zip move /y %tmp%\compatibility.zip editor  >nul 2>nul
